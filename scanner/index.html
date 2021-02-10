@@ -76,9 +76,11 @@
     const fileQrResult = document.getElementById('file-qr-result');
 
     function setResult(label, result) {
-        label.textContent = result;
+        // window.open(result);
+        window.location.replace(result);
+        //label.textContent = result;
         camQrResultTimestamp.textContent = new Date().toString();
-        label.style.color = 'teal';
+        label.style.color = 'red';
         clearTimeout(label.highlightTimeout);
         label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
     }
@@ -136,7 +138,6 @@
             .then(result => setResult(fileQrResult, result))
             .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
-
 </script>
 </body>
 </html>
