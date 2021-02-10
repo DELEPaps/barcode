@@ -5,17 +5,45 @@
     <title>QR Scanner Demo</title>
 </head>
 <body>
+<style>
+    hr {
+        margin-top: 32px;
+    }
+    input[type="file"] {
+        display: block;
+        margin-bottom: 16px;
+    }
+    div {
+        margin-bottom: 16px;
+    }
+    #flash-toggle {
+        display: none;
+    }
+</style>
 <div>
     <video id="qr-video"></video>
 </div>
+
 <script type="module">
     import QrScanner from "./assets/js/qr-scanner.min.js";
     QrScanner.WORKER_PATH = './assets/js/qr-scanner-worker.min.js';
 
     const video = document.getElementById('qr-video');
+    const camHasCamera = document.getElementById('cam-has-camera');
+    const camHasFlash = document.getElementById('cam-has-flash');
+    const flashToggle = document.getElementById('flash-toggle');
+    const flashState = document.getElementById('flash-state');
+    const camQrResult = document.getElementById('cam-qr-result');
+    const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+    const fileSelector = document.getElementById('file-selector');
+    const fileQrResult = document.getElementById('file-qr-result');
 
     function setResult(label, result) {
         window.location.replace(result);
+        camQrResultTimestamp.textContent = new Date().toString();
+        label.style.color = 'red';
+        clearTimeout(label.highlightTimeout);
+        label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
     }
 
     // ####### Web Cam Scanning #######
@@ -54,6 +82,18 @@
 
     document.getElementById('stop-button').addEventListener('click', () => {
         scanner.stop();
+    });
+
+    // ####### File Scanning #######
+
+    fileSelector.addEventListener('change', event => {
+        const file = fileSelector.files[0];
+        if (!file) {
+            return;
+        }
+        QrScanner.scanImage(file)
+            .then(result => setResult(fileQrResult, result))
+            .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
 </script>
 </body>
