@@ -8,14 +8,6 @@
 <div>
     <video id="qr-video"></video>
 </div>
-<div>
-    <select id="inversion-mode-select">
-        <option value="original">Scan original (dark QR code on bright background)</option>
-        <option value="invert">Scan with inverted colors (bright QR code on dark background)</option>
-        <option value="both">Scan both</option>
-    </select>
-    <br>
-</div>
 <b>Detected QR code: </b>
 <span id="cam-qr-result">None</span>
 <br>
@@ -85,9 +77,7 @@
         scanner.$canvas.style.display = input.checked ? 'block' : 'none';
     });
 
-    document.getElementById('inversion-mode-select').addEventListener('change', event => {
-        scanner.setInversionMode(event.target.value);
-    });
+        scanner.setInversionMode('original');
 
     document.getElementById('start-button').addEventListener('click', () => {
         scanner.start();
