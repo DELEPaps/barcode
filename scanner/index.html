@@ -5,38 +5,8 @@
     <title>QR Scanner Demo</title>
 </head>
 <body>
-<style>
-    hr {
-        margin-top: 32px;
-    }
-    input[type="file"] {
-        display: block;
-        margin-bottom: 16px;
-    }
-    div {
-        margin-bottom: 16px;
-    }
-    #flash-toggle {
-        display: none;
-    }
-</style>
-<h1>Scan from WebCam:</h1>
 <div>
-    <b>Device has camera: </b>
-    <span id="cam-has-camera"></span>
-    <br>
-    <b>Device has flash: </b>
-    <span id="cam-has-flash"></span>
-    <br>
     <video id="qr-video"></video>
-    <br>
-    <label>
-        <input id="show-scan-region" type="checkbox">
-        Show scan region
-    </label>
-</div>
-<div>
-    <button id="flash-toggle">📸 Flash: <span id="flash-state">off</span></button>
 </div>
 <div>
     <select id="inversion-mode-select">
